@@ -1,4 +1,5 @@
-FROM partlab/ubuntu
+# FROM partlab/ubuntu
+FROM vcatechnology/linux-mint
 
 LABEL maintainer="Eduardo Lopes <eduardo.lopes.es@gmail.com>"
 LABEL based="partlab/ubuntu-golang"
