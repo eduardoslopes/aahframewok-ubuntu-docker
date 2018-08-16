@@ -9,26 +9,18 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV INITRD No
 ENV LANG en_US.UTF-8
 ENV GOVERSION 1.10.3
-ENV GOROOT /opt/go
-ENV GOPATH /root/.go
+ENV GOPATH /usr/local
 
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-
-RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
 RUN apt-get update
 
 RUN apt-get install -y wget git
 
-RUN cd /opt && wget https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz && \
-    tar zxf go${GOVERSION}.linux-amd64.tar.gz && rm go${GOVERSION}.linux-amd64.tar.gz && \
-    ln -s /opt/go/bin/go /usr/bin/ 
-
-CMD ["/usr/bin/go"]
+RUN wget https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz && \
+    tar -C ${GOPATH} -xzf go${GOVERSION}.linux-amd64.tar.gz && rm go${GOVERSION}.linux-amd64.tar.gz
 
 RUN go version
-
-RUN rm -rf $GOPATH/src
 
 RUN go get -u aahframework.org/tools.v0/aah && \
     go get -u github.com/aah-cb/minify
