@@ -14,6 +14,7 @@ ENV GOOPATH /usr/local/go
 RUN mkdir $GOOPATH
 
 ENV PATH $GOOPATH/bin:/usr/local/go/bin:$PATH
+ENV PATH $PATH:/root/go/bin
 
 RUN apt-get update
 
