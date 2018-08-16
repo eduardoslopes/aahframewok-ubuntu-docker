@@ -9,16 +9,18 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV INITRD No
 ENV LANG en_US.UTF-8
 ENV GOVERSION 1.10.3
-ENV GOPATH /usr/local
+ENV GOOPATH /usr/local/go
 
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+RUN mkdir $GOOPATH
+
+ENV PATH $GOOPATH/bin:/usr/local/go/bin:$PATH
 
 RUN apt-get update
 
-RUN apt-get install -y wget git
+RUN apt-get install -y wget git gcc g++ build-essential
 
 RUN wget https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz && \
-    tar -C ${GOPATH} -xzf go${GOVERSION}.linux-amd64.tar.gz && rm go${GOVERSION}.linux-amd64.tar.gz
+    tar -C /usr/local -xzf go${GOVERSION}.linux-amd64.tar.gz && rm go${GOVERSION}.linux-amd64.tar.gz
 
 RUN go version
 
@@ -30,4 +32,4 @@ RUN aah switch && \
 
 RUN aah --version
 
-WORKDIR $GOPATH/src
+WORKDIR $GOOPATH/src
